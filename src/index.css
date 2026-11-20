@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  margin: 0;
+  background: #fff9f5;
+  color: #835e48;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #f5bad5;
+  color: #835e48;
+}
+
+:focus-visible {
+  outline: 3px solid #835e48;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* focus ring that stays visible on burgundy surfaces */
+.on-wine :focus-visible {
+  outline-color: #f7e594;
+}
+
+/* marker-pen highlights behind big words */
+.mark-butter {
+  background: linear-gradient(transparent 62%, #f7e594 62%);
+}
+.mark-blush {
+  background: linear-gradient(transparent 62%, #f5bad5 62%);
+}
+
+/* Scroll reveal. Elements are visible at rest; JS only marks
+   below-the-fold elements as "pending" so nothing is stuck hidden. */
+[data-reveal] {
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-reveal='pending'] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-reveal='pending'] {
+    opacity: 1;
+    transform: none;
+  }
+}
