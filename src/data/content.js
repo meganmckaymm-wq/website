@@ -380,7 +380,11 @@ export const projects = [
   { title: 'Logofolio', category: 'Logo design', tier: 4, tone: 'butter', ratio: 'aspect-[2/1]', icon: Sparkles, image: '/images/logofolio.jpg' },
 ];
 
-export const projectHref = (p) => `#project-${p.slug}`;
+const pathRoutes =
+  typeof window !== 'undefined' &&
+  typeof window.claude === 'undefined' &&
+  !/github\.io$/.test(window.location.hostname);
+export const projectHref = (p) => (pathRoutes ? `/work/${p.slug}` : `#project-${p.slug}`);
 
 export const niches = [
   {

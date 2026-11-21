@@ -16,22 +16,64 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import { ContentProvider } from './content/ContentContext';
 
-const readHash = () => (typeof window === 'undefined' ? '' : window.location.hash.replace('#', ''));
+/* Routing. On a normal host a case study lives at /work/<slug>. Where the page cannot change its
+   path (the Claude preview, GitHub Pages sub-folder) it falls back to "#project-<slug>". */
+const pathMode =
+  typeof window !== 'undefined' &&
+  typeof window.claude === 'undefined' &&
+  !/github\.io$/.test(window.location.hostname);
 
-/* Tiny hash router: "#project-<slug>" shows a case study, anything else is the home page. */
-function useHash() {
-  const [hash, setHash] = useState(readHash);
+const readRoute = () => {
+  if (typeof window === 'undefined') return { slug: null, hash: '' };
+  const hash = window.location.hash.replace('#', '');
+  if (pathMode) {
+    const m = window.location.pathname.match(/^\/work\/([^/]+)\/?$/);
+    if (m) return { slug: decodeURIComponent(m[1]), hash };
+    if (hash.startsWith('project-')) {
+      // old-style link: tidy it into /work/<slug>
+      const slug = hash.slice('project-'.length);
+      window.history.replaceState(null, '', `/work/${slug}`);
+      return { slug, hash: '' };
+    }
+    return { slug: null, hash };
+  }
+  return { slug: hash.startsWith('project-') ? hash.slice('project-'.length) : null, hash };
+};
+
+function useRoute() {
+  const [route, setRoute] = useState(readRoute);
   useEffect(() => {
-    const onChange = () => setHash(readHash());
-    window.addEventListener('hashchange', onChange);
-    return () => window.removeEventListener('hashchange', onChange);
+    const update = () => setRoute(readRoute());
+    const onClick = (e) => {
+      if (!pathMode || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest && e.target.closest('a[href]');
+      if (!a || (a.target && a.target !== '_self')) return;
+      const href = a.getAttribute('href');
+      const onProject = /^\/work\//.test(window.location.pathname);
+      if (href.startsWith('/work/')) {
+        e.preventDefault();
+        window.history.pushState(null, '', href);
+        update();
+      } else if (href.startsWith('#') && href.length > 1 && onProject) {
+        e.preventDefault();
+        window.history.pushState(null, '', '/' + href);
+        update();
+      }
+    };
+    window.addEventListener('hashchange', update);
+    window.addEventListener('popstate', update);
+    document.addEventListener('click', onClick);
+    return () => {
+      window.removeEventListener('hashchange', update);
+      window.removeEventListener('popstate', update);
+      document.removeEventListener('click', onClick);
+    };
   }, []);
-  return hash;
+  return route;
 }
 
 function Site() {
-  const hash = useHash();
-  const slug = hash.startsWith('project-') ? hash.slice('project-'.length) : null;
+  const { slug, hash } = useRoute();
 
   useEffect(() => {
     const go = () => {
