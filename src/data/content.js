@@ -9,7 +9,7 @@ export const site = {
   owner: 'Megan McKay',
   tagline: 'Your social media team, without the full-time commitment.',
   portrait: '/images/portrait.jpg',
-  email: 'hello@yourdomain.com', // replace with your real address
+  email: 'meganmckay.mm@gmail.com',
   socials: {
     linkedin: 'https://www.linkedin.com/',
     scrappy: 'https://www.tiktok.com/@megandoesarttt', // Scrappy Books on TikTok
@@ -257,6 +257,7 @@ export const projects = [
     ratio: 'aspect-[16/9]',
     icon: Lightbulb,
     image: pg(19),
+    video: '/videos/sc-journal.mp4',
     summary: 'My own creative direction: scrapbooks, journaling and art, shared on TikTok through savable, honest content.',
     tags: ['Content strategy', 'Creative direction', 'TikTok', 'Video'],
     brief:
@@ -270,9 +271,8 @@ export const projects = [
     links: [{ label: 'Scrappy Books on TikTok', href: site.socials.scrappy }],
     gallery: [pg(19), '/images/artists-block.jpg'],
     videos: [
-      { src: '/videos/sc-artblock.mp4', caption: 'Getting over art block' },
-      { src: '/videos/sc-journal.mp4', caption: 'Journal with me' },
       { src: '/videos/sc-markers.mp4', caption: 'Marker haul' },
+      { src: '/videos/sc-artblock.mp4', caption: 'Getting over art block' },
     ],
   },
   {
