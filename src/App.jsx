@@ -24,12 +24,20 @@ const pathMode =
   typeof window.claude === 'undefined' &&
   !/github\.io$/.test(window.location.hostname);
 
+const sectionIds = ['results', 'services', 'work', 'niches', 'about', 'experience', 'process', 'pricing', 'contact'];
+
 const readRoute = () => {
   if (typeof window === 'undefined') return { slug: null, hash: '' };
   const hash = window.location.hash.replace('#', '');
   if (pathMode) {
     const m = window.location.pathname.match(/^\/work\/([^/]+)\/?$/);
     if (m) return { slug: decodeURIComponent(m[1]), hash };
+    const seg = window.location.pathname.replace(/^\/|\/$/g, '');
+    if (sectionIds.includes(seg)) return { slug: null, hash: seg };
+    if (sectionIds.includes(hash)) {
+      window.history.replaceState(null, '', `/${hash}`);
+      return { slug: null, hash };
+    }
     if (hash.startsWith('project-')) {
       // old-style link: tidy it into /work/<slug>
       const slug = hash.slice('project-'.length);
@@ -44,7 +52,7 @@ const readRoute = () => {
 function useRoute() {
   const [route, setRoute] = useState(readRoute);
   useEffect(() => {
-    const update = () => setRoute(readRoute());
+    const update = () => setRoute({ ...readRoute(), n: Math.random() });
     const onClick = (e) => {
       if (!pathMode || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const a = e.target.closest && e.target.closest('a[href]');
@@ -55,9 +63,11 @@ function useRoute() {
         e.preventDefault();
         window.history.pushState(null, '', href);
         update();
-      } else if (href.startsWith('#') && href.length > 1 && href !== '#prices' && onProject) {
+      } else if (href.startsWith('#') && href.length > 1 && href !== '#prices' && href !== '#main') {
+        const id = href.slice(1);
+        if (id !== 'top' && !sectionIds.includes(id)) return;
         e.preventDefault();
-        window.history.pushState(null, '', '/' + href);
+        window.history.pushState(null, '', id === 'top' ? '/' : `/${id}`);
         update();
       }
     };
@@ -74,7 +84,7 @@ function useRoute() {
 }
 
 function Site() {
-  const { slug, hash } = useRoute();
+  const { slug, hash, n } = useRoute();
 
   useEffect(() => {
     const go = () => {
@@ -88,7 +98,7 @@ function Site() {
     };
     const id = window.requestAnimationFrame(go);
     return () => window.cancelAnimationFrame(id);
-  }, [hash, slug]);
+  }, [hash, slug, n]);
 
   return (
     <>
