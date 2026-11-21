@@ -29,10 +29,7 @@ export default function Pricing() {
                 <article className="flex h-full flex-col rounded-[2.5rem] bg-paper p-3 shadow-soft">
                   <div className={`rounded-[2rem] p-7 ${priceTones[p.tone]}`}>
                     <h3 className="font-display text-2xl font-semibold">{p.name}</h3>
-                    <p className="mt-5 flex items-baseline gap-2">
-                      <span className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{p.price}</span>
-                      <span className="font-serif text-xl italic">{p.per}</span>
-                    </p>
+                    <p className="mt-3 font-serif text-2xl italic">{p.per}</p>
                   </div>
                   <div className="flex flex-1 flex-col px-5 pb-5 pt-6">
                     <p className="text-lg leading-relaxed text-wine">{p.blurb}</p>
