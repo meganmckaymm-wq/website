@@ -21,7 +21,7 @@ export const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Packages', href: '#pricing' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -432,29 +432,29 @@ export const testimonials = [
 ];
 
 export const pricing = {
-  note: 'All prices exclude VAT. Monthly packages have a 3-month minimum and include 2 rounds of revisions. Paid ads management is not included.',
-  addons: 'Add-ons: single graphic posts from €35, extra strategy work €200–300.',
+  note: 'Monthly packages have a 3-month minimum and include 2 rounds of revisions. Paid ads management is not included. Message me and I will send the prices.',
+  addons: 'Single graphic posts and extra strategy work are also available.',
   packages: [
     {
       name: 'The Direction',
-      price: '€250',
-      per: 'one-off',
+      price: 'Contact for price',
+      per: 'One-off project',
       tone: 'sky',
       blurb: 'A clear starting point for brands that want to know what to post and why, before committing to a monthly plan.',
       features: ['Creative and content direction for your brand', 'Delivered as a one-off project', 'A solid base to run yourself or build on with me'],
     },
     {
       name: 'The Creative Partner',
-      price: '€550',
-      per: 'per month',
+      price: 'Contact for price',
+      per: 'Monthly',
       tone: 'blush',
       blurb: 'Steady, on-brand content created for you every month.',
       features: ['8 content pieces per month', 'Up to 3 video edits', '2 rounds of revisions', '3-month minimum'],
     },
     {
       name: 'The Social Partner',
-      price: '€850',
-      per: 'per month',
+      price: 'Contact for price',
+      per: 'Monthly',
       tone: 'butter',
       blurb: 'The fuller setup: more content, more video and more than one platform.',
       features: ['12–16 content pieces per month', 'Up to 5 video edits', '2 platforms', '2 rounds of revisions', '3-month minimum'],

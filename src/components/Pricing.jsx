@@ -13,13 +13,13 @@ export default function Pricing() {
         <Reveal>
           <SectionHeading
             id="pricing-title"
-            eyebrow="Pricing"
+            eyebrow="Packages"
             title={
               <>
-                Simple packages, <Accent>clear prices.</Accent>
+                Simple packages, <Accent>tailored to you.</Accent>
               </>
             }
-            intro="Start with a direction or let me take over your content every month. Not sure which fits? Tell me about your brand and we will work it out."
+            intro="Start with a direction or let me take over your content every month. Get in touch and I will send you the prices and help you pick the right fit."
           />
         </Reveal>
         <ul className="mt-14 grid gap-6 lg:grid-cols-3">
@@ -30,7 +30,7 @@ export default function Pricing() {
                   <div className={`rounded-[2rem] p-7 ${priceTones[p.tone]}`}>
                     <h3 className="font-display text-2xl font-semibold">{p.name}</h3>
                     <p className="mt-5 flex items-baseline gap-2">
-                      <span className="font-display text-5xl font-bold tracking-tight">{p.price}</span>
+                      <span className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{p.price}</span>
                       <span className="font-serif text-xl italic">{p.per}</span>
                     </p>
                   </div>
@@ -48,7 +48,7 @@ export default function Pricing() {
                     </ul>
                     <div className="mt-auto pt-8">
                       <Button href="#contact" variant="secondary" arrow={false} className="w-full">
-                        Ask about this
+                        Request prices
                       </Button>
                     </div>
                   </div>
