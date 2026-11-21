@@ -14,6 +14,7 @@ import Process from './components/Process';
 import StickyCTA from './components/StickyCTA';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import PricesDialog from './components/PricesDialog';
 import { ContentProvider } from './content/ContentContext';
 
 /* Routing. On a normal host a case study lives at /work/<slug>. Where the page cannot change its
@@ -54,7 +55,7 @@ function useRoute() {
         e.preventDefault();
         window.history.pushState(null, '', href);
         update();
-      } else if (href.startsWith('#') && href.length > 1 && onProject) {
+      } else if (href.startsWith('#') && href.length > 1 && href !== '#prices' && onProject) {
         e.preventDefault();
         window.history.pushState(null, '', '/' + href);
         update();
@@ -120,6 +121,7 @@ function Site() {
       {slug && <CTA />}
       <StickyCTA />
       <Footer />
+      <PricesDialog />
     </>
   );
 }

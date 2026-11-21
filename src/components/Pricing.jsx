@@ -44,7 +44,7 @@ export default function Pricing() {
                       ))}
                     </ul>
                     <div className="mt-auto pt-8">
-                      <Button href="#contact" variant="secondary" arrow={false} className="w-full">
+                      <Button href="#prices" variant="secondary" arrow={false} className="w-full">
                         Request prices
                       </Button>
                     </div>
